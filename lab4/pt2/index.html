@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Amoritization Calculator</title>
+</head>
+<body>
+	<form>
+					Investment Amount: <input type="text" id="investment-amount"><br/>
+					<br>
+					Annual Interest Rate: <input type="text" id="annual-ir"><br/>
+					<br>
+					Number of Years: <input type="number" id="num-years"><br/>
+					<br>
+		<input type="submit" value="Calculate" onclick="calcTable();"
+	</form>
+
+<script>
+
+
+/*
+
+
+	find the interest rate per month (interest rate / 12)
+	multiply by number of months
+
+
+*/
+
+		//iPmt
+		function calculateMonthlyInterestPayment(loan_length, current_loan_remaining, monthly_ir, interest_payment_num){
+
+			monthly_interest_payment = (current_loan_remaining*monthly_ir)*
+			(Math.pow((monthly_ir + 1),(loan_length + 1)) - Math.pow((monthly_ir + 1),interest_payment_num)) / ((monthly_ir + 1) * ((Math.pow((monthly_ir + 1),loan_length) - 1)));
+
+			return monthly_interest_payment;
+		}
+
+		//pPmt
+		function calculatePrincipleAmount(loan_length, interest_payment_num, current_loan_remaining, monthly_ir){
+			return calculateMonthlyPayment(loan_length, current_loan_remaining, monthly_ir) - calculateMonthlyInterestPayment(loan_length, current_loan_remaining, monthly_ir, interest_payment_num);
+		}
+
+		/*pmt
+		//params
+			@investment_amount: long static amount of full loan (from input)
+			@monthly_ir: annual_ir (from input) / 12
+			@loan_length: years (from input) * 12 for months
+		*/
+		function calculateMonthlyPayment(loan_length, current_loan_remaining, monthly_ir){
+		    var monthly_payment = current_loan_remaining * (monthly_ir / (1 - Math.pow(1 + monthly_ir, -loan_length)));
+		    return monthly_payment;
+		}
+
+		/* PARAMS:
+			@: array of */
+		function calcTable(){
+		    var body = document.body;
+		    var tbl  = document.createElement('table');
+		    	tbl.style.width  = '800px';
+		    	tbl.style.border = '1px solid blue';
+
+
+		    /* Calculate payment monthly */
+		    var loanLength = document.getElementById('num-years').value;
+		    var investmentAmt = document.getElementById('investment-amount').value;
+		    var annualIR = document.getElementById('annual-ir').value;
+		    var monthlyIR = annualIR/12;
+		    var interestPmtNum = 1.0;	//starting at the first payment
+		    loanLength *= 12;
+
+		    var runningPayments = 0.0;
+
+
+		    var runningInterestPayments = 0.0;
+
+		    //what we will accrue principle within, and subtract from total remaining after every iteration
+		    var runningPrinciplePayments = 0.0;
+
+		    var monthlyInterest = calculateMonthlyInterestPayment(loanLength, investmentAmt, monthlyIR, interestPmtNum)
+		    console.log("monthly interest is " + monthlyInterest);
+
+		    //pmt
+		    var monthlyPmt = calculateMonthlyPayment(loanLength, investmentAmt, monthlyIR);
+		    console.log(monthlyPmt + " test");
+
+
+		    /* Declare table headers */
+		    var th = tbl.createTHead();
+		    var thr = th.insertRow();
+		    var thd = thr.insertCell(0);
+		    thd.innerHTML = "<b>Period (months)</b>";
+
+			thd = thr.insertCell(1);
+		    thd.innerHTML = "<b>Interest</b>";
+
+			thd = thr.insertCell(2);
+		    thd.innerHTML = "<b>Principle</b>";
+
+		    thd = thr.insertCell(3);
+			thd.innerHTML = "<b>Payment</b>";
+
+		    /* generate rows based on months */
+
+
+		    //calculate interest
+		     	//current principle amt * monthly interest rate (annual / 12) = monthly_interest
+
+		    //calculate principle
+		    	//monthly_pmt - monthly_interest
+		    
+
+		    for(var i = 0; i < loanLength; i++){
+
+		        var tr = tbl.insertRow(i+1);
+		        for(var j = 0; j < 4; j++){
+		        	
+		        	switch(j){
+		        		case 0:
+			        		//td value is loanLength
+			        		var td = tr.insertCell(j);
+			        		td.appendChild(document.createTextNode(i+1));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 1:
+
+		        			var td = tr.insertCell(j);
+		        			//td value is present Interest (higher getting lower)
+
+			        		td.appendChild(document.createTextNode(calculateMonthlyInterestPayment(loanLength, investmentAmt - runningPrinciplePayments, monthlyIR, i+1)));
+			                td.style.border = '1px solid black';
+
+		        			continue;
+
+		        		case 2:
+
+		        			var td = tr.insertCell(j);		        		
+		        			//td value is present Principle (lower getting higher)
+
+		        			//createTextNode(calculateMonthlyPrinciplePayment())
+			        		td.appendChild(document.createTextNode(calculatePrincipleAmount(loanLength, i+1, investmentAmt - runningPrinciplePayments, monthlyIR)));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 3:
+		        				        			
+		        			var td = tr.insertCell(j);
+		        			//td value is static Payment (pres Princ + pres Int) always balances out to same #
+			        		td.appendChild(document.createTextNode(monthlyPmt));
+			                td.style.border = '1px solid black';
+		        			continue;
+		        	}
+
+		        }
+		    }
+		    body.appendChild(tbl);
+		}
+
+</script>
+</body>
+
+
+
+</html>
