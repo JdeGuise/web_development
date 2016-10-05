@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- John deGuise, ITC320, Grigoletti, 10/6/16 -->
+
+<html>
+<head>
+	<title>Array Manipulation</title>
+</head>
+<body>
+
+<script>
+
+		//firing function for generating table onclick
+		function calcTable(){
+		    var body = document.body;
+		    var tbl  = document.createElement('table');
+		    	tbl.style.width  = '800px';
+		    	tbl.style.border = '1px solid blue';
+
+
+		    //initialize each item as an object
+		    var Hammer = {
+		    	name: "Hammer",
+		    	qty: "5",
+		    	price: "15.00",
+		    };
+		   	
+		   	var Drill = {
+		    	name: "Drill",
+		    	qty: "3",
+		    	price: "49.99",
+		    };
+
+		    var Screwdriver = {
+		    	name: "Screwdriver",
+		    	qty: "6",
+		    	price: "3.00",
+		    };
+
+		    var Wrench = {
+		    	name: "Wrench",
+		    	qty: "4",
+		    	price: "6.25",
+		    };
+		    
+		    var Pliers = {
+		    	name: "Pliers",
+		    	qty: "2",
+		    	price: "4.00",
+		    };
+		    
+		    var Ratchet = {
+		    	name: "Ratchet",
+		    	qty: "1",
+		    	price: "12.50",
+		    };
+		    
+		    var Chisel = {
+		    	name: "Chisel",
+		    	qty: "7",
+		    	price: "8.50",
+		    };
+		    
+		    var Prybar = {
+		    	name: "Prybar",
+		    	qty: "4",
+		    	price: "7.25",
+		    };
+		    
+		    var Saw = {
+		    	name: "Saw",
+		    	qty: "6",
+		    	price: "14.50",
+		    };
+		    
+		    var Sander = {
+		    	name: "Sander",
+		    	qty: "2",
+		    	price: "27.99",
+		    };
+
+		    //push each object to the object array
+		    var myObjArray = [];
+		    myObjArray.push(Hammer);
+		    myObjArray.push(Drill);
+		    myObjArray.push(Screwdriver);
+		    myObjArray.push(Wrench);
+		    myObjArray.push(Pliers);
+		    myObjArray.push(Ratchet);
+		    myObjArray.push(Chisel);
+		    myObjArray.push(Prybar);
+		    myObjArray.push(Saw);
+		    myObjArray.push(Sander);
+
+		    //calculate the respective extension prices
+			for(var i = 0; i < myObjArray.length; i++){
+				myObjArray[i].extPrice = myObjArray[i].qty * myObjArray[i].price;
+			}
+
+			document.write("<b>Original Table</b>");
+
+		    /* Declare table headers */
+		    var th = tbl.createTHead();
+		    var thr = th.insertRow();
+		    var thd = thr.insertCell(0);
+		    thd.innerHTML = "<b>Item</b>";
+
+			thd = thr.insertCell(1);
+		    thd.innerHTML = "<b>Price</b>";
+
+			thd = thr.insertCell(2);
+		    thd.innerHTML = "<b>Qty</b>";
+
+		    thd = thr.insertCell(3);
+			thd.innerHTML = "<b>Ext. Price</b>";
+
+			//generate a row for each item in our list
+		    for(var i = 0; i < myObjArray.length; i++){
+
+		        var tr = tbl.insertRow(i+1);
+
+		        //Generate our 4 columns
+		        for(var j = 0; j < 4; j++){
+		        	
+		        	switch(j){
+		        		case 0:
+			        		//td value is name of tool
+			        		var td = tr.insertCell(j);
+			        		td.appendChild(document.createTextNode(myObjArray[i].name));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 1:
+
+		        			var td = tr.insertCell(j);
+		        			//td value is price of tool
+			        		td.appendChild(document.createTextNode(myObjArray[i].price));
+			                td.style.border = '1px solid black';
+
+		        			continue;
+
+		        		case 2:
+
+		        			var td = tr.insertCell(j);		        		
+		        			//td value is quantity of tool on sheet
+			        		td.appendChild(document.createTextNode(myObjArray[i].qty));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 3:
+		        				        			
+		        			var td = tr.insertCell(j);
+		        			//td value is extended price (price * qty on list)
+			        		td.appendChild(document.createTextNode(myObjArray[i].extPrice));
+			                td.style.border = '1px solid black';
+		        			continue;
+		        	}
+
+		        }
+		    }
+		    body.appendChild(tbl);
+		    return myObjArray;
+		}
+
+		function sortCalculatedTable(objectArray){
+		    var body = document.body;
+		    var tbl  = document.createElement('table');
+		    	tbl.style.width  = '800px';
+		    	tbl.style.border = '1px solid blue';
+
+		    /* Declare table headers */
+		    var th = tbl.createTHead();
+		    var thr = th.insertRow();
+		    var thd = thr.insertCell(0);
+
+		    document.write("<br>");
+			document.write("<b>Sorted</b>");
+
+
+		    thd.innerHTML = "<b>Item</b>";
+
+			thd = thr.insertCell(1);
+		    thd.innerHTML = "<b>Price</b>";
+
+			thd = thr.insertCell(2);
+		    thd.innerHTML = "<b>Qty</b>";
+
+		    thd = thr.insertCell(3);
+			thd.innerHTML = "<b>Ext. Price</b>";
+
+
+			//sort our objectArray by .name with anonymous inner function
+			objectArray.sort(function(a, b){
+			    if(a.name < b.name) return -1;
+			    if(a.name > b.name) return 1;
+			    return 0;
+			});
+
+
+			for(var i = 0; i < objectArray.length; i++){
+		        var tr = tbl.insertRow(i+1);
+
+				for(var j = 0; j < 4; j++){
+
+		        	switch(j){
+		        		case 0:
+			        		//td value is name of tool
+			        		var td = tr.insertCell(j);
+			        		td.appendChild(document.createTextNode(objectArray[i].name));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 1:
+
+		        			var td = tr.insertCell(j);
+		        			//td value is price of tool
+			        		td.appendChild(document.createTextNode(objectArray[i].price));
+			                td.style.border = '1px solid black';
+
+		        			continue;
+
+		        		case 2:
+
+		        			var td = tr.insertCell(j);		        		
+		        			//td value is quantity of tool on sheet
+			        		td.appendChild(document.createTextNode(objectArray[i].qty));
+			                td.style.border = '1px solid black';
+		        			continue;
+
+		        		case 3:
+		        				        			
+		        			var td = tr.insertCell(j);
+		        			//td value is extended price (price * qty on list)
+			        		td.appendChild(document.createTextNode(objectArray[i].extPrice));
+			                td.style.border = '1px solid black';
+		        			continue;
+		        	}
+				}
+
+
+			}
+
+
+
+			body.appendChild(tbl);
+		}
+
+
+		sortCalculatedTable(calcTable());
+</script>
+</body>
+
+
+
+</html>
