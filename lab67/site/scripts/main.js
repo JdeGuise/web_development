@@ -1,3 +1,10 @@
+/*
+
+      Author:  John deGuise
+      Date:   10/20/16
+
+      Filename: calendar.html
+   */
 var week_cells = document.getElementsByClassName('weekly');
 console.log(week_cells);
 

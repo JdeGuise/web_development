@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- John deGuise, ITC320, Grigoletti, 9/29/16 -->
+
 <html>
 <head>
 	<title>Amoritization Calculator</title>
@@ -26,7 +28,37 @@
 
 */
 
-		//iPmt
+
+		/* generic rounding function
+			note: this is pulled straight from StackOverflow.
+			http://stackoverflow.com/questions/1726630/formatting-a-number-with-exactly-two-decimals-in-javascript
+
+				Please let me know if we needed to build our own rounding functions!
+		*/
+		//params
+		//	@value: our float that we want to round and truncate to 2 decimal places
+		function round2Fixed(value) {
+		  value = +value;
+
+		  if (isNaN(value))
+		    return NaN;
+
+		  // Shift
+		  value = value.toString().split('e');
+		  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + 2) : 2)));
+
+		  // Shift back
+		  value = value.toString().split('e');
+		  return (+(value[0] + 'e' + (value[1] ? (+value[1] - 2) : -2))).toFixed(2);
+		}
+
+		/*iPmt
+		//params
+			@loan_length: 				len(months) that loan spans
+			@current_loan_remaining: 	principle remaining, whether in full or after subtractions
+			@monthly_ir: 				annual interest rate supplied / 12
+			@interest_payment_num: 		the payment that we're currently on (1 through n)
+		*/
 		function calculateMonthlyInterestPayment(loan_length, current_loan_remaining, monthly_ir, interest_payment_num){
 
 			monthly_interest_payment = (current_loan_remaining*monthly_ir)*
@@ -35,14 +67,20 @@
 			return monthly_interest_payment;
 		}
 
-		//pPmt
+		/*pPmt
+		params
+			@loan_length: 				len(months) that loan spans
+			@current_loan_remaining: 	principle remaining, whether in full or after subtractions
+			@monthly_ir: 				annual interest rate supplied / 12
+			@interest_payment_num: 		the payment that we're currently on (1 through n)		
+		*/
 		function calculatePrincipleAmount(loan_length, interest_payment_num, current_loan_remaining, monthly_ir){
 			return calculateMonthlyPayment(loan_length, current_loan_remaining, monthly_ir) - calculateMonthlyInterestPayment(loan_length, current_loan_remaining, monthly_ir, interest_payment_num);
 		}
 
 		/*pmt
 		//params
-			@investment_amount: long static amount of full loan (from input)
+			@current_loan_remaining: long static amount of full loan (from input)
 			@monthly_ir: annual_ir (from input) / 12
 			@loan_length: years (from input) * 12 for months
 		*/
@@ -51,8 +89,7 @@
 		    return monthly_payment;
 		}
 
-		/* PARAMS:
-			@: array of */
+		//firing function for generating table onclick
 		function calcTable(){
 		    var body = document.body;
 		    var tbl  = document.createElement('table');
@@ -127,7 +164,7 @@
 		        			var td = tr.insertCell(j);
 		        			//td value is present Interest (higher getting lower)
 
-			        		td.appendChild(document.createTextNode(calculateMonthlyInterestPayment(loanLength, investmentAmt - runningPrinciplePayments, monthlyIR, i+1)));
+			        		td.appendChild(document.createTextNode("$"+round2Fixed(calculateMonthlyInterestPayment(loanLength, investmentAmt - runningPrinciplePayments, monthlyIR, i+1))));
 			                td.style.border = '1px solid black';
 
 		        			continue;
@@ -138,7 +175,7 @@
 		        			//td value is present Principle (lower getting higher)
 
 		        			//createTextNode(calculateMonthlyPrinciplePayment())
-			        		td.appendChild(document.createTextNode(calculatePrincipleAmount(loanLength, i+1, investmentAmt - runningPrinciplePayments, monthlyIR)));
+			        		td.appendChild(document.createTextNode("$"+round2Fixed(calculatePrincipleAmount(loanLength, i+1, investmentAmt - runningPrinciplePayments, monthlyIR))));
 			                td.style.border = '1px solid black';
 		        			continue;
 
@@ -146,7 +183,7 @@
 		        				        			
 		        			var td = tr.insertCell(j);
 		        			//td value is static Payment (pres Princ + pres Int) always balances out to same #
-			        		td.appendChild(document.createTextNode(monthlyPmt));
+			        		td.appendChild(document.createTextNode("$"+round2Fixed(monthlyPmt)));
 			                td.style.border = '1px solid black';
 		        			continue;
 		        	}
