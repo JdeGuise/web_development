@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!--
+
+      Author:  John deGuise
+      Date:   10/20/16
+
+      Filename: calendar.html
+   -->
+   <meta charset="utf-8">
+	<title>The Lemon Store</title>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<link rel="stylesheet" type="text/css" href="styles/foundation.css">
+   <script type="text/javascript" src="scripts/cart.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+   </head>
+<body>
+			<header>
+				<div class="row header">
+					  <div class="columns small-12">
+							   <ul class="topnav" id="myTopNav">
+								<a href="index.html">
+								  <img id="logo" src="images/lemonlogo.png">
+								</a>
+                           <li class="menuitem"><a href="index.html">Home</a></li>
+									<li class="menuitem"><a href="calendar.html">Calendar</a></li>
+									<li class="menuitem"><a href="products.html">Products</a></li>
+									<li class="menuitem"><a href="order.html">Shopping Cart</a></li>
+                           <li class="menuitem"><a href="contact.html">Contact Us</a>
+							   </ul>
+					  </div>
+				</div>				
+			</header>
+
+<div id="container" style="width:85%; margin: 0 auto;">   
+<br>     
+      <article>
+         <h2 style="text-align:center;">Your Order</h2>
+         <h4 style="text-align:center;">Shopping Cart total</h4>
+
+         <p>Add values or click the inputs:</p>
+         <form id="estimateform">
+            <fieldset>
+               <legend><span>Fruit</span></legend>
+               <input name="qty" type="number" min="0" max="1000000" id="1lemnum" value="0" />
+               <label for="photognum">
+                  <p># of lemons (1)</p>
+                  <p class="price">.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="3lemnum" value="0" />
+               <label for="photoghrs">
+                  <p># of lemons (3)</p>
+                  <p class="price">2.49</p>
+               </label>
+
+                <input name=qty" type="number" min="0" max="1000000" id="5lemnum" value="0" />
+               <label for="photoghrs">
+                  <p># of lemons (5)</p>
+                  <p class="price">3.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="10lemnum" value="0" />
+               <label for="photoghrs">
+                  <p># of lemons (10)</p>
+                  <p class="price">6.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="50lemnum" value="0" />
+               <label for="photoghrs">
+                  <p># of lemons (50)</p>
+                  <p class="price">24.99</p>
+               </label>                              
+            </fieldset>
+
+            <fieldset>
+               <legend><span>Drinks/Related</span></legend>
+
+
+               <input name="qty" type="number" min="0" max="1000000" id="1lemcup" value="0" />
+               <label for="photognum">
+                  <p>Cup of lemonade (8 oz cup)</p>
+                  <p class="price">1.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="1lemice" value="0" />
+               <label for="photoghrs">
+                  <p>Lemon ice (8oz cup)</p>
+                  <p class="price">3.99</p>
+               </label>
+
+                <input name=qty" type="number" min="0" max="1000000" id="1lempitch" value="0" />
+               <label for="photoghrs">
+                  <p>Pitcher of Lemonade (72oz)</p>
+                  <p class="price">4.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="5lemcubes" value="0" />
+               <label for="photoghrs">
+                  <p>Lemon flavored ice (5 cubes)</p>
+                  <p class="price">.99</p>
+               </label>
+
+               <input name="qty" type="number" min="0" max="1000000" id="1lempkeg" value="0" />
+               <label for="photoghrs">
+                  <p>Ponykeg of lemonade (960oz)</p>
+                  <p class="price">59.99</p>
+               </label>    
+            </fieldset>
+         </form>
+      </article>
+
+      <input type="checkbox" name="coupon" id="coupon"> Apply coupon code 
+
+      <button style="left:75%;" onclick="calculateOrderTotal()">
+         Submit
+      </button>
+</div>
+         <div class="row">
+
+                           <footer>
+                              <p>Site by John deGuise 2016 - lab 6/7, 10/20/16 - ITC320 Grigolleti</p>   
+
+                           </footer>      
+         </div>  
+</body>
+</html>

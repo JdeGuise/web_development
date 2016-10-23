@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!--
+
+      Author:  John deGuise
+      Date:   10/20/16
+
+      Filename: calendar.html
+   -->
+	<title>The Lemon Store</title>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<link rel="stylesheet" type="text/css" href="styles/foundation.css">
+</head>
+<body>
+		<div class="wrapper">
+			<header style="height:35px;">
+				<div class="row header">
+					  <div class="columns small-12">
+
+
+							   <ul class="topnav" id="myTopNav">
+								<a href="index.html">
+								  <img id="logo" src="images/lemonlogo.png" style="margin-left:-20px;">
+								</a>
+                           <li class="menuitem"><a href="index.html">Home</a></li>
+									<li class="menuitem"><a href="calendar.html">Calendar</a></li>
+									<li class="menuitem"><a href="products.html">Products</a></li>
+									<li class="menuitem"><a href="order.html">Shopping Cart</a></li>
+									<li class="menuitem"><a href="contact.html">Contact Us</a>
+							   </ul>
+					  </div>
+				</div>				
+			</header>
+
+			<br>
+			<br>
+
+			<h2 style="margin-left:45px;">Contact Us</h2>
+
+			<br>
+			<br>
+
+				<div class="row" style="width:65%;">
+
+					<form method="post">
+						
+						<div class="field-group">
+							
+							<div class="field" required>
+								First Name:
+								 <input type="text" name="first_input" required> 
+							</div>
+							<div class="field">
+								Last Name
+								 <input type="text" name="last_input" required> 
+							</div>
+							<div class="field">
+								Email
+								<input type="email" name="email_input" required>
+							</div>
+
+
+							<div class="field">
+									
+
+								What can we help you with?
+								<textarea id="customer_query" required></textarea>
+
+							</div>
+
+							<div class="field">
+								 <input type="checkbox" name="alert-chkbox" id="alert-chkbox"> Alert with checkbox upon submit
+							</div>
+							<div class="field">
+							
+								<select name="remember_me" required>
+									<option value="Remember Me" selected>Remember Me</option>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+
+							</div>	
+
+
+
+							<div class="field">
+								
+								<button type="submit" onclick="alertSubmit()">Submit</button>
+
+							</div>
+
+						</div>
+
+					</form>
+
+				</div>
+
+				<br>
+
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+
+
+
+
+			<div class="row">
+			    <footer>
+			        <p>Site by John deGuise 2016 - lab 6/7, 10/20/16 - ITC320 Grigolleti</p>   
+			    </footer> 		
+			</div>	 
+		</div>
+			<script type="text/javascript">
+				
+				function alertSubmit(){
+					var alert_bool = document.getElementById('alert-chkbox');
+					if(alert_bool.checked){
+						alert("Form submitted.");
+					}
+				}
+
+			</script>
+
+		</body>
+
+
+</html>
